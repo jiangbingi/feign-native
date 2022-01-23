@@ -1,9 +1,8 @@
 package io.github.gfd.feignnative.anno;
 
-import io.github.gfd.feignnative.FeignApiProperties;
 import io.github.gfd.feignnative.provider.ApiResponseBodyAdvice;
+import io.github.gfd.feignnative.provider.FeignControllerAdvice;
 import io.github.gfd.feignnative.provider.FeignControllerRegistrar;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;
@@ -16,8 +15,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import({FeignControllerRegistrar.class, ApiResponseBodyAdvice.class})
-@EnableConfigurationProperties(FeignApiProperties.class)
+@Import({FeignControllerRegistrar.class, ApiResponseBodyAdvice.class, FeignControllerAdvice.class})
 public @interface EnableFeignProvider {
 
     String[] basePackages() default {};

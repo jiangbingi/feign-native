@@ -13,13 +13,15 @@ public class TypeUtil {
 
     private static final Type[] EMPTY_TYPE_ARRAY = new Type[0];
 
-    public static boolean isEqualsClassAny(Type type, Class<?>... classes){
-        if (type == null || ArrayUtil.isEmpty(classes)){
+    public static boolean isEqualsClassAny(Type type, Class<?>... classes) {
+        if (type == null || ArrayUtil.isEmpty(classes)) {
             return false;
         }
-        Class<?> rawType = getRawType(type);
-        if(ArrayUtil.contains(classes, rawType)){
-            return true;
+        Class<?> returnTawType = getRawType(type);
+        for (Class<?> aClass : classes) {
+            if (aClass.isAssignableFrom(returnTawType)) {
+                return true;
+            }
         }
         return false;
     }
@@ -242,12 +244,12 @@ public class TypeUtil {
                 if (originalLowerBound.length == 1) {
                     Type lowerBound = resolve(context, contextRawType, originalLowerBound[0]);
                     if (lowerBound != originalLowerBound[0]) {
-                        return new WildcardTypeImpl(new Type[] {Object.class}, new Type[] {lowerBound});
+                        return new WildcardTypeImpl(new Type[]{Object.class}, new Type[]{lowerBound});
                     }
                 } else if (originalUpperBound.length == 1) {
                     Type upperBound = resolve(context, contextRawType, originalUpperBound[0]);
                     if (upperBound != originalUpperBound[0]) {
-                        return new WildcardTypeImpl(new Type[] {upperBound}, EMPTY_TYPE_ARRAY);
+                        return new WildcardTypeImpl(new Type[]{upperBound}, EMPTY_TYPE_ARRAY);
                     }
                 }
                 return original;
@@ -428,12 +430,12 @@ public class TypeUtil {
 
         @Override
         public Type[] getUpperBounds() {
-            return new Type[] {upperBound};
+            return new Type[]{upperBound};
         }
 
         @Override
         public Type[] getLowerBounds() {
-            return lowerBound != null ? new Type[] {lowerBound} : EMPTY_TYPE_ARRAY;
+            return lowerBound != null ? new Type[]{lowerBound} : EMPTY_TYPE_ARRAY;
         }
 
         @Override

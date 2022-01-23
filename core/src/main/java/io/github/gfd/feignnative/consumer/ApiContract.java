@@ -4,16 +4,16 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
-import io.github.gfd.feignnative.MethodMetadataExt;
-import io.github.gfd.feignnative.FeignApiProperties;
-import io.github.gfd.feignnative.anno.IgnoreApiResponse;
-import io.github.gfd.feignnative.constant.CommonConstant;
-import io.github.gfd.feignnative.util.TypeUtil;
 import feign.Feign;
 import feign.MethodMetadata;
 import feign.Param;
 import feign.Request;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.github.gfd.feignnative.ApiResponse;
+import io.github.gfd.feignnative.FeignResponse;
+import io.github.gfd.feignnative.MethodMetadataExt;
+import io.github.gfd.feignnative.anno.IgnoreApiResponse;
+import io.github.gfd.feignnative.constant.CommonConstant;
+import io.github.gfd.feignnative.util.TypeUtil;
 import org.springframework.cloud.openfeign.AnnotatedParameterProcessor;
 import org.springframework.cloud.openfeign.support.SpringMvcContract;
 import org.springframework.core.DefaultParameterNameDiscoverer;
@@ -38,8 +38,8 @@ import java.util.concurrent.Future;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static io.github.gfd.feignnative.constant.CommonConstant.*;
 import static feign.Util.checkState;
+import static io.github.gfd.feignnative.constant.CommonConstant.*;
 import static java.util.Optional.ofNullable;
 
 /**
@@ -55,9 +55,6 @@ public class ApiContract extends SpringMvcContract {
             .valueOf(String.class);
 
     private final ConversionService conversionService;
-
-    @Autowired
-    private FeignApiProperties feignApiProperties;
 
     public ApiContract() {
         this(Collections.emptyList(), new DefaultConversionService());
@@ -238,10 +235,10 @@ public class ApiContract extends SpringMvcContract {
             }
             MethodMetadata metadata = metadataExt.metadata();
             Type returnType = metadata.returnType();
-            if (TypeUtil.isEqualsClassAny(returnType, feignApiProperties.getResponseClass(), Future.class)) {
+            if (TypeUtil.isEqualsClassAny(returnType, ApiResponse.class, Future.class)) {
                 continue;
             }
-            metadata.returnType(new ApiResponseType(returnType, feignApiProperties.getResponseClass()));
+            metadata.returnType(new ApiResponseType(returnType, FeignResponse.class));
         }
     }
 

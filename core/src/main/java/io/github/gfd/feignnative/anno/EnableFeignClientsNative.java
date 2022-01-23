@@ -1,9 +1,7 @@
 package io.github.gfd.feignnative.anno;
 
-import io.github.gfd.feignnative.FeignApiProperties;
 import io.github.gfd.feignnative.GlobalApiClientConfig;
 import io.github.gfd.feignnative.consumer.FeignHandlerBeanPostProcessor;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;
@@ -17,7 +15,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Import({FeignHandlerBeanPostProcessor.class, GlobalApiClientConfig.class})
-@EnableConfigurationProperties(FeignApiProperties.class)
 public @interface EnableFeignClientsNative {
 
 }

@@ -36,4 +36,5 @@ public interface CommonConstant {
      * Api响应码
      */
     int CODE_SUCCESS = 200;
+    int CODE_COMMON_ERROR = 500;
 }

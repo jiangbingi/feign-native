@@ -34,4 +34,7 @@ public interface DemoApi {
     @RequestMapping("/customQueryOrder")
     OrderDTO queryOrderByMethodAnnotation(OrderDTO orderDTO, @RequestParam("uid") Long uid);
 
+
+    OrderDTO testFeignBusinessException(Long uid);
+
 }

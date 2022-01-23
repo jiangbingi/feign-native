@@ -3,7 +3,3 @@ server:
 spring:
   application:
     name: demo-provider
-
-feign:
-  api:
-    response-class: io.github.telxs.feignnative.demo.api.model.FeignResponse

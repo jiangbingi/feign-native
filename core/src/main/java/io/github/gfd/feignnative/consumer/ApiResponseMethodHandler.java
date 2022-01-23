@@ -38,9 +38,9 @@ public class ApiResponseMethodHandler implements InvocationHandlerFactory.Method
                     && !TypeUtil.isEqualsClassAny(metadataExt.originReturnType(), ApiResponse.class)) {
                 ApiResponse<?> apiResponse = (ApiResponse<?>) result;
                 if (!apiResponse.isSuccess()) {
-                    throw new FeignBusinessException(apiResponse.code(), apiResponse.message());
+                    throw new FeignBusinessException(apiResponse.getCode(), apiResponse.getMessage());
                 }
-                return apiResponse.data();
+                return apiResponse.getData();
             }
         }
         return result;
